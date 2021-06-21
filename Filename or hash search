@@ -1,0 +1,26 @@
+//example: let fileName = "New Text Document.txt";
+//the variables are strings so you have to have the quotations around them
+//comment out the lines you don't need, or the variables you set that you aren't going to use. 
+//  leaving them blank, along with the OR statement, will give you more results than you probably want.
+//example: Timestamp between (ago(4d) .. ago(3d))
+
+
+let fileName = "New Text Document.txt";
+let fileSHA256 = "";
+let fileMD5 = "";
+let fileSHA1 = "";
+search in (DeviceFileEvents, EmailAttachmentInfo, CloudAppEvents)
+//you can change the line below to get a more precise search scope
+Timestamp between (ago(1d) .. now())
+
+and (FileName =~ fileName
+or (ObjectType == 'File' and ObjectName == fileName)
+// or InitiatingProcessFileName =~ fileName
+// or ActivityObjects has fileName
+or SHA256 == fileSHA256
+or InitiatingProcessSHA256 == fileSHA256
+or SHA1 == fileSHA1
+or InitiatingProcessSHA1 == fileSHA1
+or MD5 == fileMD5
+or InitiatingProcessMD5 == fileMD5
+)
